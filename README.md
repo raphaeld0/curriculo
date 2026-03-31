@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Raphael Dias | Currículo</title>
+    <!-- Google Fonts + Font Awesome CDN para ícones -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #eef2f5;
+            font-family: 'Inter', sans-serif;
+            color: #1a2a3f;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+
+        /* Container principal estilo card */
+        .resume-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        /* Botão de exportar PDF */
+        .pdf-toolbar {
+            background: white;
+            padding: 1.2rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn-pdf {
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.6rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s, transform 0.1s;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .btn-pdf i {
+            font-size: 1rem;
+        }
+
+        .btn-pdf:hover {
+            background: #0f2b44;
+            transform: scale(0.98);
+        }
+
+        /* Conteúdo do currículo (também usado no print) */
+        .resume-content {
+            padding: 1.1rem 1.1rem 1.4rem 1.1rem;
+        }
+
+        /* Cabeçalho com nome e contato */
+        .header {
+            margin-bottom: 2rem;
+            border-bottom: 3px solid #1e3a5f;
+            padding-bottom: 1.5rem;
+        }
+
+        .name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0a2540;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            row-gap: 0.4rem;
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            color: #2c3e50;
+        }
+
+        .contact-bar a {
+            color: #1e3a5f;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        .contact-bar a:hover {
+            color: #0f2b44;
+            text-decoration: underline;
+        }
+
+        .contact-bar i {
+            width: 1.2rem;
+            font-size: 1rem;
+            color: #2c5a7a;
+        }
+
+        /* Grid de seções: principal estilo minimalista */
+        section {
+            margin-bottom: 1.2rem;
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #0a2540;
+            border-left: 5px solid #1e3a5f;
+            padding-left: 1rem;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.2px;
+        }
+
+        /* experiência / projetos */
+        .job, .project-item, .edu-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .job-header, .project-header, .edu-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-title, .project-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #1f3b4c;
+        }
+
+        .company, .project-sub {
+            font-weight: 500;
+            color: #2c5a7a;
+            font-size: 0.9rem;
+        }
+
+        .date {
+            font-size: 0.8rem;
+            color: #5b6f82;
+            background: #f0f4f9;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .description {
+            margin-top: 0.5rem;
+            padding-left: 0.2rem;
+        }
+
+        .description ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .description li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .description li i {
+            color: #1e3a5f;
+            font-size: 0.75rem;
+            margin-top: 0.3rem;
+            width: 1rem;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .skill-badge {
+            background: #eef2fa;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1e3a5f;
+        }
+
+        .certs-list, .lang-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .cert-item, .lang-item {
+            background: #f8fafc;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            border: 1px solid #e2edf7;
+        }
+
+        /* link do projeto github pessoal */
+        .github-note {
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            color: #2c5a7a;
+        }
+
+        hr {
+            margin: 1rem 0;
+            border: 0;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        /* Estilos de impressão: Formato minimalista puro */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+                font-size: 10pt;
+            }
+            .pdf-toolbar, .btn-pdf {
+                display: none;
+            }
+            .resume-container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+                margin: 0;
+            }
+            .resume-content {
+                padding: 0.5in;
+            }
+            .header {
+                border-bottom: 2px solid black;
+                padding-bottom: 0.5rem;
+                margin-bottom: 1rem;
+            }
+            .name {
+                font-size: 1.3rem;
+                margin-bottom: 0.3rem;
+            }
+            .contact-bar a {
+                text-decoration: none;
+                color: black;
+            }
+            .contact-bar {
+                font-size: 0.9rem;
+                gap: 1rem;
+            }
+            .section-title {
+                font-size: 1rem;
+                border: none;
+                border-bottom: 2px solid black;
+                padding-left: 0;
+                padding-bottom: 0.3rem;
+                margin-bottom: 0.5rem;
+                margin-top: 1rem;
+            }
+            .skill-badge, .cert-item, .lang-item {
+                background: transparent !important;
+                border: none !important;
+                padding: 0 !important;
+                margin-right: 0.5rem;
+            }
+            .date {
+                background: transparent !important;
+                padding: 0 !important;
+                color: black;
+            }
+            .job, .project-item, .edu-item {
+                margin-bottom: 0.8rem;
+                page-break-inside: avoid;
+            }
+            section {
+                margin-bottom: 0.8rem;
+            }
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .resume-content {
+                padding: 1.2rem;
+            }
+            .name {
+                font-size: 2rem;
+            }
+            .contact-bar {
+                gap: 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="resume-container">
+    <div class="pdf-toolbar">
+        <button class="btn-pdf" id="exportPdfBtn">
+            Exportar como PDF
+        </button>
+    </div>
+    <div class="resume-content" id="resumeContent">
+        <!-- Cabeçalho principal -->
+        <div class="header">
+            <div class="name">Raphael Dias</div>
+            <div class="contact-bar">
+                <a href="https://linkedin.com/in/raphaelddias" target="_blank">linkedin.com/in/raphaelddias</a>
+                <a href="https://github.com/raphaeld0" target="_blank">github.com/raphaeld0</a>
+            </div>
+        </div>
+
+        <!-- Resumo Profissional -->
+        <section>
+            <div class="section-title">Resumo Profissional</div>
+            <p style="color: #2c3e50; text-align: justify;">Graduante em Sistemas de Informação com forte interesse em engenharia de dados e análise. Possuo experiência em desenvolvimento de soluções com Python e integrações com banco de dados, além de vivência em projetos full stack. Busco oportunidade para contribuir com soluções escaláveis e evoluir tecnicamente em projetos reais.</p>
+        </section>
+
+        <!-- Experiência -->
+        <section>
+            <div class="section-title">Experiência</div>
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <span class="job-title">Desenvolvedor Trainee</span>
+                        <span class="company"> • IN Junior</span>
+                    </div>
+                    <div class="date">Maio 2025 – Atual</div>
+                </div>
+                <div class="description">
+                    <ul>
+                        <li>Atuo no desenvolvimento de soluções tecnológicas para clientes, incluindo análise de requisitos e modelagem de dados.</li>
+                        <li>Colaboro com equipes multidisciplinares utilizando metodologias ágeis e ferramentas de versionamento (Git).</li>
+                        <li>Utilizo metodologias ágeis para organização e gestão das tarefas.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projetos -->
+        <section>
+            <div class="section-title">Projetos</div>
+            <div class="project-item">
+                <div class="project-header">
+                    <div>
+                        <span class="project-title">Task Manager</span>
+                        <span class="project-sub"> • Sistema Full Stack de Gerenciamento de Tarefas</span>
+                    </div>
+                    <div class="date">Projeto Pessoal</div>
+                </div>
+                <div class="description">
+                    <ul>
+                        <li>Desenvolvi aplicação full stack utilizando Node.js e React.</li>
+                        <li>Implementei autenticação com JWT e criptografia de senhas com bcrypt.</li>
+                        <li>Estruturei API REST com operações CRUD completas.</li>
+                        <li>Modelei banco de dados para gerenciamento de usuários e tarefas.</li>
+                    </ul>
+                    <div class="github-note">Repositório: github.com/raphaeld0 (projeto disponível no GitHub)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Educação -->
+        <section>
+            <div class="section-title">Educação</div>
+            <div class="edu-item">
+                <div class="job-header">
+                    <div>
+                        <span class="job-title">Bacharelado em Sistemas de Informação</span>
+                        <span class="company"> • Universidade Federal Fluminense (UFF)</span>
+                    </div>
+                    <div class="date">Mar 2025 – Atual</div>
+                </div>
+            </div>
+            <div class="edu-item">
+                <div class="job-header">
+                    <div>
+                        <span class="job-title">Técnico em Informática</span>
+                        <span class="company"> • Instituto Federal Fluminense (IFF)</span>
+                    </div>
+                    <div class="date">Fev 2022 – Dez 2024</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Habilidades Técnicas -->
+        <section>
+            <div class="section-title">Habilidades Técnicas</div>
+            <div class="skills-grid">
+                <span class="skill-badge">PostgreSQL</span>
+                <span class="skill-badge">MongoDB</span>
+                <span class="skill-badge">Node.js</span>
+                <span class="skill-badge">Python</span>
+                <span class="skill-badge">APIs REST</span>
+                <span class="skill-badge">React</span>
+                <span class="skill-badge">Angular</span>
+                <span class="skill-badge">AWS Básico</span>
+                <span class="skill-badge">Git & GitHub</span>
+                <span class="skill-badge">Power BI</span>
+            </div>
+        </section>
+
+        <!-- Cursos e Certificações -->
+        <section>
+            <div class="section-title">Cursos e Certificações</div>
+            <div class="certs-list">
+                <span class="cert-item">CS50: Introduction to Computer Science – Harvard (edX)</span>
+                <span class="cert-item">AWS Cloud Practitioner Essentials – AWS</span>
+                <span class="cert-item">Santander Jornada Tech AWS – Em andamento</span>
+                <span class="cert-item">Foundation Data – Google (Coursera)</span>
+            </div>
+        </section>
+
+        <!-- Idiomas -->
+        <section>
+            <div class="section-title">Idiomas</div>
+            <div class="lang-list">
+                <span class="lang-item"><strong>Português:</strong> Nativo</span>
+                <span class="lang-item"><strong>Inglês:</strong> Avançado</span>
+                <span class="lang-item"><strong>Espanhol:</strong> Básico</span>
+            </div>
+        </section>
+        
+        <!-- pequeno espaçamento final -->
+        <div style="height: 0.5rem;"></div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const exportBtn = document.getElementById('exportPdfBtn');
+        
+        // Função de exportação via window.print com otimização para PDF
+        function exportAsPDF() {
+            // Salvar título original da aba para restaurar depois (opcional)
+            const originalTitle = document.title;
+            document.title = "Raphael_Dias_Curriculo";
+            
+            // Disparar impressão nativa do navegador (que permite "Salvar como PDF")
+            window.print();
+            
+            // Pequeno timeout para restaurar o título após o diálogo de impressão
+            setTimeout(() => {
+                document.title = originalTitle;
+            }, 100);
+        }
+        
+        if (exportBtn) {
+            exportBtn.addEventListener('click', exportAsPDF);
+        }
+        
+    })();
+</script>
+</body>
+</html>
